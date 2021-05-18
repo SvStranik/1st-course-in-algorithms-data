@@ -30,19 +30,26 @@ class LinkedList:
     
     def delete(self,val,all=False):
         node = self.head
-        if node.value == val: self.head = node.next
-        else:
-            while node.next is not None:
-                if node.next.value == val:
-                    if node.next.next == None:
-                        node.next = None
-                        self.tail = node
+        while node.value == val:
+            self.head = node.next
+            if all == False:return
+            if node.next == None:
+                self.head = None
+                self.tail = None
+                return
+            node = node.next
+        while node.next is not None:
+            if node.next.value == val:
+                if node.next.next == None:
+                    node.next = None
+                    self.tail = node
+                    return
+                else:
+                    node.next = node.next.next
+                    if all == False:
                         return
-                    else:
-                        node.next = node.next.next
-                        if all == False:
-                            return
-                node = node.next
+                    continue
+            node = node.next
     
     def clean(self):
         self.head = None
@@ -77,4 +84,4 @@ class LinkedList:
                     node.next = newNode
                 per = True
             node = node.next
-                
+            
