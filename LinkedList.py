@@ -32,11 +32,11 @@ class LinkedList:
         node = self.head
         while node.value == val:
             self.head = node.next
-            if all == False:return
             if node.next == None:
                 self.head = None
                 self.tail = None
                 return
+            if all == False:return
             node = node.next
         while node.next is not None:
             if node.next.value == val:
