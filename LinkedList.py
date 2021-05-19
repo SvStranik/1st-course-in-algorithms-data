@@ -29,26 +29,24 @@ class LinkedList:
         return None
     
     def delete(self,val,all=False):
-        node = self.head
-        while node.value == val:
-            self.head = node.next
-            if node.next == None:
+        if self.head == None: return
+        while self.head.value == val:
+            if self.head.next == None:
                 self.head = None
                 self.tail = None
                 return
-            if all == False:return
-            node = node.next
-        while node.next is not None:
+            self.head = self.head.next
+            if all != True:return
+        node = self.head
+        while self.tail != node:
             if node.next.value == val:
                 if node.next.next == None:
                     node.next = None
                     self.tail = node
                     return
-                else:
-                    node.next = node.next.next
-                    if all == False:
-                        return
-                    continue
+                node.next = node.next.next
+                if all != True:return
+                continue
             node = node.next
     
     def clean(self):
@@ -61,6 +59,7 @@ class LinkedList:
         while node is not None:
             if node.value == val: resultat.append(node)
             node = node.next
+        if len(resultat) < 1: return None
         return resultat
         
     def len(self):
@@ -72,16 +71,22 @@ class LinkedList:
         return resultat
     
     def insert(self,afterNode, newNode):
+        if self.head == None:
+            self.head = newNode
+            self.tail = newNode
+            return
         node = self.head
         per = False  
         while per is not True:
-            if node == afterNode:
-                if node.next == None:
-                    newNode.next = self.head
-                    self.head = newNode
-                else:    
-                    newNode.next = node.next
-                    node.next = newNode
+            if node == afterNode:  
+                newNode.next = node.next
+                node.next = newNode
+                if node.next.next == None:
+                    self.tail = newNode
                 per = True
+            if node.next == None and node != afterNode:
+                newNode.next = self.head
+                self.head = newNode
+                return
             node = node.next
             
