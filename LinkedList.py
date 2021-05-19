@@ -59,7 +59,6 @@ class LinkedList:
         while node is not None:
             if node.value == val: resultat.append(node)
             node = node.next
-        if len(resultat) < 1: return None
         return resultat
         
     def len(self):
