@@ -1,5 +1,5 @@
 def sumList(s1,s2):
-    if s1.len() == s2.len() and s1.len() >= 1: 
+    if s1.len() == s2.len() >= 1: 
         s3 = LinkedList()
         node,node2 = s1.head,s2.head
         while node:
