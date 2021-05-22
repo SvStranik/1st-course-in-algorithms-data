@@ -105,9 +105,3 @@ class LinkedList2:
             node.prev = newNode
             newNode.next = node
         self.head = newNode
-
-    def print_all_nodes(self):# УДАЛИТЬ
-        node = self.head
-        while node is not None:
-            print(node.value)
-            node = node.next
