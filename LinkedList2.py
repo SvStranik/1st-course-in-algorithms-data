@@ -111,8 +111,3 @@ class LinkedList2:
         while node is not None:
             print(node.value)
             node = node.next
-
-s_list1 = LinkedList2()
-#s_list1.add_in_tail(Node(2))
-
-print(s_list1.len())
