@@ -44,6 +44,7 @@ class LinkedList2:
                 self.head = None
                 self.tail = None
                 return
+            self.head.next.prev = None
             self.head = self.head.next
             if all != True: return
         else:
