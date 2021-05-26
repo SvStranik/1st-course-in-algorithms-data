@@ -1,5 +1,9 @@
 class Linked:
     
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
     def delete(self,val, all = False):
         if self.head == None: return
         self.add_in_head(Node("HEAD"))
@@ -27,12 +31,11 @@ class Node:
         self.prev = None
         self.next = None 
 
-class LinkedList2(Linked):  
-
+class LinkedList2(Linked): 
+    
     def __init__(self):
-        self.head = None
-        self.tail = None
-
+        super().__init__()
+    
     def add_in_tail(self, item):
         if self.head is None:
             self.head = item
@@ -103,3 +106,9 @@ class LinkedList2(Linked):
             node.prev = newNode
             newNode.next = node
         self.head = newNode
+
+s_list1 = LinkedList2()
+s_list1.add_in_tail(Node(2))
+s_list1.add_in_tail(Node(1))
+s_list1.add_in_tail(Node(2))
+s_list1.delete(2)
