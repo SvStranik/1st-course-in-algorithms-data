@@ -106,9 +106,3 @@ class LinkedList2(Linked):
             node.prev = newNode
             newNode.next = node
         self.head = newNode
-
-s_list1 = LinkedList2()
-s_list1.add_in_tail(Node(2))
-s_list1.add_in_tail(Node(1))
-s_list1.add_in_tail(Node(2))
-s_list1.delete(2)
