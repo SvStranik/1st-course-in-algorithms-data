@@ -1,13 +1,24 @@
-class Linked:
+class Node:
+    def __init__(self,v):
+        self.value = v
+        self.prev = None
+        self.next = None 
+
+class DummyNode:
+    
+    def __init__(self):
+        self.prev = None
+        self.next = None
+
+class LinkedList2: 
     
     def __init__(self):
         self.head = None
         self.tail = None
-
+        
     def delete(self,val, all = False):
-        if self.head == None: return
-        self.add_in_head(Node("HEAD"))
-        self.add_in_tail(Node("TAIL"))
+        self.add_in_head(DummyNode())
+        self.add_in_tail(DummyNode())
         node = self.head
         while node.next:
             node = node.next
@@ -22,20 +33,8 @@ class Linked:
             self.head = self.head.next
             self.head.prev = None
             self.tail = self.tail.prev
-            self.tail.next = None            
-    
-class Node:
-
-    def __init__(self,v):
-        self.value = v
-        self.prev = None
-        self.next = None 
-
-class LinkedList2(Linked): 
-    
-    def __init__(self):
-        super().__init__()
-    
+            self.tail.next = None     
+            
     def add_in_tail(self, item):
         if self.head is None:
             self.head = item
