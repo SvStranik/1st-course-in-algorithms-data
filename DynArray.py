@@ -37,7 +37,6 @@ class DynArray:
                 raise IndexError('Index is out of bounds')
         except IndexError:
             return "попытка вставки элемента в недопустимую позицию"
-            return 
         if self.count + 1 > self.capacity:
             new_capacity = (2 * self.capacity)
             self.resize(new_capacity)
