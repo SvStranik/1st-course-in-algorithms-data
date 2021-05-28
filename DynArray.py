@@ -32,11 +32,8 @@ class DynArray:
         self.count += 1
 
     def insert(self, i, itm):
-        try:
-            if i < 0 or i > self.count:
-                raise IndexError('Index is out of bounds')
-        except IndexError:
-            return "попытка вставки элемента в недопустимую позицию"
+        if i != self.count:
+            self.__getitem__(i)
         if self.count + 1 > self.capacity:
             new_capacity = (2 * self.capacity)
             self.resize(new_capacity)
@@ -52,12 +49,7 @@ class DynArray:
         self.count += 1
 
     def delete(self, i):
-        try:
-            if i >= self.count:
-                raise IndexError('Index is out of bounds')
-        except IndexError:
-            return "попытка удаления элемента в недопустимой позиции"
-            
+        self.__getitem__(i)
         if self.count - 1 == self.capacity // 2:
             self.capacity = (self.capacity // 2)
         new_array = self.make_array(self.capacity)
