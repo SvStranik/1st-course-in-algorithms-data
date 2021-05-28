@@ -36,7 +36,7 @@ class DynArray:
             if i < 0 or i > self.count:
                 raise IndexError('Index is out of bounds')
         except IndexError:
-            print("попытка вставки элемента в недопустимую позицию")
+            return "попытка вставки элемента в недопустимую позицию"
             return 
         if self.count + 1 > self.capacity:
             new_capacity = (2 * self.capacity)
@@ -57,8 +57,8 @@ class DynArray:
             if i >= self.count:
                 raise IndexError('Index is out of bounds')
         except IndexError:
-            print("попытка удаления элемента в недопустимой позиции.") 
-            return
+            return "попытка удаления элемента в недопустимой позиции"
+            
         if self.count - 1 == self.capacity // 2:
             self.capacity = (self.capacity // 2)
         new_array = self.make_array(self.capacity)
