@@ -50,8 +50,8 @@ class DynArray:
 
     def delete(self, i):
         self.__getitem__(i)
-        if self.__len__() - 1 == self.capacity // 2 >= 16:
-            self.capacity = self.capacity // 2
+        if self.__len__() - 1 == self.capacity // 2 and self.capacity // 1.5 >= 16:
+            self.capacity = int(self.capacity // 1.5)
         new_array = self.make_array(self.capacity)
         new_count = 0
         for j in range(self.count):
