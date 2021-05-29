@@ -49,7 +49,6 @@ class DynArray:
         self.count += 1
 
     def delete(self, i):
-        i -= 1
         self.__getitem__(i)
         if self.__len__() - 1 == self.capacity // 2 >= 16:
             self.capacity = self.capacity // 2
