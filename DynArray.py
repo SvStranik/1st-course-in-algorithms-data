@@ -46,18 +46,19 @@ class DynArray:
             new_array[j] = self.array[new_count]
             new_count += 1
         self.array = new_array
-        self.count += 1
+        
 
     def delete(self, i):
         self.__getitem__(i)
-        if self.__len__() - 1 == self.capacity // 2 and self.capacity // 1.5 >= 16:
-            self.capacity = int(self.capacity // 1.5)
         new_array = self.make_array(self.capacity)
-        new_count = 0
+        per = 0
         for j in range(self.count):
-            if j == i:
+            if j == i: 
                 continue
-            new_array[new_count] = self.array[j]
-            new_count += 1
+            new_array[per] = self.array[j]
+            per += 1
         self.array = new_array
         self.count -= 1
+        if self.count < self.capacity // 2 and int(self.capacity / 1.5) >= 16:
+            new_capacity = int(self.capacity / 1.5)
+            self.resize(new_capacity)
