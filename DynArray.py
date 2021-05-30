@@ -59,6 +59,9 @@ class DynArray:
             per += 1
         self.array = new_array
         self.count -= 1
-        if self.count < self.capacity // 2 and int(self.capacity / 1.5) >= 16:
-            new_capacity = int(self.capacity / 1.5)
+        if self.count < self.capacity // 2:
+            if int(self.capacity / 1.5) <= 16:
+                new_capacity = 16
+            else:
+                new_capacity = int(self.capacity / 1.5)
             self.resize(new_capacity)
