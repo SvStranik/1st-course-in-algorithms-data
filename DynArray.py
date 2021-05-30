@@ -46,7 +46,7 @@ class DynArray:
             new_array[j] = self.array[new_count]
             new_count += 1
         self.array = new_array
-        
+        self.count += 1
 
     def delete(self, i):
         self.__getitem__(i)
@@ -62,3 +62,9 @@ class DynArray:
         if self.count < self.capacity // 2 and int(self.capacity / 1.5) >= 16:
             new_capacity = int(self.capacity / 1.5)
             self.resize(new_capacity)
+da = DynArray()
+print(len(da),da.count,"= элементов",da.capacity,"= ячеек",da.array)
+da.insert(0,1000)
+print(len(da),da.count,"= элементов",da.capacity,"= ячеек",da.array)
+for i in range(da.count):
+    print(da.array[i])
