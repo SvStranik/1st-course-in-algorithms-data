@@ -27,9 +27,10 @@ class Stack:
 def twoStach(s):
     stack1 = Stack()
     stack2 = Stack()
-    stack1.stack = s[:]
+    for i in range(len(s)-1,-1,-1):
+        stack1.push(s[i])
     while stack1.peek():
-        if type(stack1.stack[0]) == int:
+        if isinstance(stack1.peek(), int):
             per = stack1.peek()
         elif stack1.peek() == "+":
             per = 0
@@ -44,13 +45,11 @@ def twoStach(s):
     return stack2.peek()
 
 def equalityParentheses(s):
-    stack = Stack()
-    stack.stack = s[:]
-    count = 0
-    while stack.peek():
-        if count >= 0:
-            if stack.pop() == "(": count += 1
-            else: count -= 1
-        else: return "не сбалансированы"
-    if count == 0 : return "сбалансированы"
-    else: return "не сбалансированы"
+    stack1 = Stack()
+    stack2 = Stack()
+    if len(s) % 2 == 0 and s[0] == "(" :
+        for i in range(len(s)):
+            if s[i] == '(': stack1.push(s[i])
+            else: stack2.push(s[i])
+        if stack1.size() == stack2.size(): return "сбалансированы"
+    return "не сбалансированы"
