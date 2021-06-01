@@ -44,16 +44,6 @@ def twoStach(s):
         stack1.pop()
     return stack2.peek()
 
-def equalityParentheses(s):
-    stack1 = Stack()
-    stack2 = Stack()
-    if len(s) % 2 == 0 and s[0] == "(" :
-        for i in range(len(s)):
-            if s[i] == '(': stack1.push(1)
-            else: stack2.push(s[i])
-        if stack1.size() == stack2.size(): return "сбалансированы"
-    return "не сбалансированы"
-
 def equalityParentheses1(s):
     stack = Stack()
     if len(s) % 2 == 0 and s[0] == "(" :
@@ -61,6 +51,3 @@ def equalityParentheses1(s):
             if s[i] == '(': stack.push(1)
     if stack.size() == len(s) / 2: return "сбалансированы"
     return "не сбалансированы"
-
-s = '(((())))'
-print(equalityParentheses1(s))
