@@ -3,15 +3,16 @@ class Queue:
         self.queue = []
 
     def enqueue(self, item):
-        queue = [item]
+        queue = []
+        queue.append(item)
         for i in range(self.size()):
             queue.append(self.queue[i])
         self.queue = queue
 
     def dequeue(self):
         if self.size() != 0:
-            queue = self.queue[self.size()-1]
-            self.queue = self.queue[:self.size()-1]
+            queue = self.queue[-1]
+            self.queue = self.queue[:-1]
             return queue
         return None 
 
