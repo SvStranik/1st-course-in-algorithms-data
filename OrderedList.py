@@ -14,9 +14,6 @@ class OrderedList:
         if v1.value < v2.value: return -1
         elif v1.value == v2.value: return 0
         else: return 1
-        # -1 если v1 < v2
-        # 0 если v1 == v2
-        # +1 если v1 > v2
 
     def add(self, value):
         item = Node(value)
@@ -45,8 +42,6 @@ class OrderedList:
                 self.tail.next = item
                 self.tail = item
 
-        # автоматическая вставка value 
-        # в нужную позицию
 
     def find(self, val):
         item = Node(val)
@@ -60,15 +55,46 @@ class OrderedList:
             node = node.next
         
         
-    def delete(self, val):
-        pass # здесь будет ваш код
+    def delete(self, val,all=False):
+        if self.head == None: return
+        while self.head.value == val:
+            if self.head.next == None:
+                self.head = None
+                self.tail = None
+                return
+            self.head.next.prev = None
+            self.head = self.head.next
+            if all != True: return
+        else:
+            self.prev = None
+        node = self.head
+        while self.tail != node:
+            if node.next.value == val:
+                if node.next.next == None:
+                    node.next = None
+                    self.tail = node
+                    return
+                node.next.next.prev = node
+                node.next = node.next.next
+                if all != True: return
+                continue
+            node = node.next
+
 
     def clean(self, asc):
         self.__ascending = asc
-        pass # здесь будет ваш код
+        self.head = None
+        self.tail = None
+
 
     def len(self):
-        return 0 # здесь будет ваш код
+        resultat = 0
+        node = self.head
+        while node:
+            resultat += 1
+            node = node.next
+        return resultat 
+
 
     def get_all(self):
         r = []
@@ -78,13 +104,6 @@ class OrderedList:
             node = node.next
         return r
 
-    def get_value(self): # УДАЛИТЬ ФУНКЦИЮ
-        r = []
-        node = self.head
-        while node != None:
-            r.append(node.value)
-            node = node.next
-        return r
 
 class OrderedStringList(OrderedList):
     def __init__(self, asc):
@@ -94,15 +113,4 @@ class OrderedStringList(OrderedList):
         if v1.value.rstrip().lstrip() < v2.value.rstrip().lstrip(): return -1
         elif v1.value.rstrip().lstrip() == v2.value.rstrip().lstrip(): return 0
         else: return 1
-        # переопределённая версия для строк
- 
-
-#Or = OrderedList(False)
-Or1 = OrderedStringList(False)
-Or1.add("a")
-Or1.add(" a ")
-Or1.add("a")
-Or1.add("  ab ")
-Or1.add("ab")
-print(Or1.get_value())
-print(Or1.find("a"))
+        
