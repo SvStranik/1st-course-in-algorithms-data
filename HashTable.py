@@ -11,11 +11,10 @@ class HashTable:
 
     def seek_slot(self, value):
          index_slot = self.hash_fun(value)
-         if self.slots[index_slot] == None or value : return index_slot
-         position = index_slot + self.step
-         if position > self.size - 1: position -= self.size
-         while position != index_slot:
-              if self.slots[position] == None or value: return position
+         position = index_slot
+         while position + self.step != index_slot:
+              if self.slots[position] == None: return position
+              if self.slots[position] == value: return position
               position += self.step
               if position > self.size - 1: position -= self.size
          return None
