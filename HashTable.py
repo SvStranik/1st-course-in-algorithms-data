@@ -12,12 +12,14 @@ class HashTable:
     def seek_slot(self, value):
          index_slot = self.hash_fun(value)
          position = index_slot
-         while position + self.step != index_slot:
+         while None in self.slots or value in self.slots:
               if self.slots[position] == None: return position
               if self.slots[position] == value: return position
               position += self.step
+              if position == index_slot:
+                  position += 1
+                  index_slot += 1
               if position > self.size - 1: position -= self.size
-         return None
 
 
     def put(self, value):
