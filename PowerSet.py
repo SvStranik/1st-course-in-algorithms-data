@@ -56,10 +56,10 @@ class PowerSet:
     def intersection(self, set2):
         resultat = []
         for i in set2:
-            if self.get(i):
+            if self.get(i) and i not in resultat:
                 resultat.append(i)
-        return set(resultat)
-
+        if len(resultat) > 0: return resultat
+        return None
 
 
     def union(self, set2):
@@ -68,9 +68,9 @@ class PowerSet:
             for j in range(len(self.slots[i])):
                 resultat.append(self.slots[i][j])
         for j in set2:
-            if not self.get(j):
+            if not self.get(j) and j not in resultat:
                 resultat.append(j)
-        if len(resultat)>0: return set(resultat)
+        if len(resultat)>0: return resultat
         return None
 
 
@@ -80,7 +80,8 @@ class PowerSet:
             for j in range(len(self.slots[i])):
                 if self.slots[i][j] not in  set2:
                     resultat.append(self.slots[i][j])
-        return set(resultat)
+        if len(resultat) > 0: return resultat
+        return None
 
 
 
@@ -96,4 +97,3 @@ class PowerSet:
             for j in range(len(self.slots[i])):
                 resultat.append(self.slots[i][j])
         return resultat
-        
