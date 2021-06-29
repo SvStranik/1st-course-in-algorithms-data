@@ -67,9 +67,10 @@ class PowerSet:
         for i in range(len(self.slots)):
             for j in range(len(self.slots[i])):
                 resultat.append(self.slots[i][j])
-        for j in set2:
-            if j not in resultat:
-                resultat.append(j)
+        if isinstance(set2,set):
+            for j in set2:
+                if j not in resultat:
+                    resultat.append(j)
         if len(resultat)>0: return resultat
         return None
 

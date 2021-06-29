@@ -15,7 +15,7 @@ class PowerSet(unittest.TestCase):
         self.assertEqual(Pw.size(),30000)
 
     def test_2(self):
-        for i in range(30000,30000):
+        for i in range(25000,30000):
             Pw.put(str(i))
         for j in range(5000):
             Pw.put(str(j))
