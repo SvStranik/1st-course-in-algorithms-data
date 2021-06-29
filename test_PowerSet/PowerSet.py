@@ -54,43 +54,37 @@ class PowerSet:
  
 
     def intersection(self, set2):
-        if isinstance(set2,set) and self.sizeSlot > 0:
-            resultat = []
-            for i in set2:
-                if self.get(i):
-                    resultat.append(i)
-            return resultat
+        resultat = []
+        for i in set2:
+            if self.get(i) and i not in resultat:
+                resultat.append(i)
+        if len(resultat) > 0: return resultat
         return None
 
 
     def union(self, set2):
-        if isinstance(set2,set) and self.sizeSlot > 0:
-            resultat = []
-            for i in range(len(self.slots)):
-                for j in range(len(self.slots[i])):
-                    resultat.append(self.slots[i][j])
-            if isinstance(set2,set):
-                for j in set2:
-                    if not self.get(j):
-                        resultat.append(j)
-            return resultat
+        resultat = []
+        for i in range(len(self.slots)):
+            for j in range(len(self.slots[i])):
+                resultat.append(self.slots[i][j])
+        for j in set2:
+            if j not in resultat:
+                resultat.append(j)
+        if len(resultat)>0: return resultat
         return None
 
 
     def difference(self, set2):
-        if isinstance(set2,set) and self.sizeSlot > 0:
-            resultat = []
-            for i in range(len(self.slots)):
-                for j in range(len(self.slots[i])):
-                    if self.slots[i][j] not in  set2:
-                        resultat.append(self.slots[i][j])
-            return resultat
-        return None
+        resultat = []
+        for i in range(len(self.slots)):
+            for j in range(len(self.slots[i])):
+                if self.slots[i][j] not in  set2:
+                    resultat.append(self.slots[i][j])
+        return resultat
 
 
 
     def issubset(self, set2):
-        if not isinstance(set2,set): return False
         for i in set2:
             if not self.get(i): return False
         return True
