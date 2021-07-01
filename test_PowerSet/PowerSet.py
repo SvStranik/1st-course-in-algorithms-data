@@ -7,7 +7,7 @@ class PowerSet():
 
 
     def hash_fun(self, value):
-         return sum(str(value).encode('utf-8')) % self.Size
+         return sum(value.encode('utf-8')) % self.Size
 
 
     def seek_slot(self, value):
@@ -59,7 +59,7 @@ class PowerSet():
             for i in set2:
                 if self.get(i):
                     resultat.append(i)
-            return resultat
+            if len(resultat)>0: return set(resultat)
         return None
 
 
@@ -72,7 +72,7 @@ class PowerSet():
             for j in set2:
                 if j not in resultat:
                     resultat.append(j)
-            return resultat
+            if len(resultat)>0: return set(resultat)
         return None
 
 
@@ -83,7 +83,7 @@ class PowerSet():
                 for j in range(len(self.slots[i])):
                     if self.slots[i][j] not in  set2:
                         resultat.append(self.slots[i][j])
-            return resultat
+            return set(resultat)
         return None
 
 
