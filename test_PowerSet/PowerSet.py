@@ -57,7 +57,7 @@ class PowerSet():
         if isinstance(set2, set):
             resultat = []
             for i in set2:
-                if self.get(i) and i not in resultat:
+                if self.get(i):
                     resultat.append(i)
             return resultat
         return None
