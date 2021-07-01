@@ -1,6 +1,6 @@
-class PowerSet:
+class PowerSet():
 
-    def __init__(self, sz = 100):
+    def __init__(self, sz = 100): 
         self.Size = sz
         self.slots = [[] for _ in range(self.Size)]
         self.sizeSlot = 0
@@ -53,42 +53,46 @@ class PowerSet:
         return False
  
 
-    def intersection(self, set2):
-        resultat = []
-        for i in set2:
-            if self.get(i) and i not in resultat:
-                resultat.append(i)
-        if len(resultat) > 0: return resultat
+    def intersection(self, set2:set):
+        if isinstance(set2, set):
+            resultat = []
+            for i in set2:
+                if self.get(i) and i not in resultat:
+                    resultat.append(i)
+            return set(resultat)
         return None
 
 
-    def union(self, set2):
-        resultat = []
-        for i in range(len(self.slots)):
-            for j in range(len(self.slots[i])):
-                resultat.append(self.slots[i][j])
+    def union(self, set2:set):
         if isinstance(set2,set):
+            resultat = []
+            for i in range(len(self.slots)):
+                for j in range(len(self.slots[i])):
+                    resultat.append(self.slots[i][j])
             for j in set2:
                 if j not in resultat:
                     resultat.append(j)
-        if len(resultat)>0: return resultat
+            return set(resultat)
         return None
 
 
-    def difference(self, set2):
-        resultat = []
-        for i in range(len(self.slots)):
-            for j in range(len(self.slots[i])):
-                if self.slots[i][j] not in  set2:
-                    resultat.append(self.slots[i][j])
-        return resultat
-
+    def difference(self, set2:set):
+        if isinstance(set2,set):
+            resultat = []
+            for i in range(len(self.slots)):
+                for j in range(len(self.slots[i])):
+                    if self.slots[i][j] not in  set2:
+                        resultat.append(self.slots[i][j])
+            return set(resultat)
+        return None
 
 
     def issubset(self, set2):
-        for i in set2:
-            if not self.get(i): return False
-        return True
+        if isinstance(set2,set):
+            for i in set2:
+                if not self.get(i): return False
+            return True
+        return False
 
 
     def printSlots(self):
