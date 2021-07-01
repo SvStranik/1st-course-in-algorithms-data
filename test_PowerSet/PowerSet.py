@@ -59,7 +59,7 @@ class PowerSet():
             for i in set2:
                 if self.get(i) and i not in resultat:
                     resultat.append(i)
-            return set(resultat)
+            return resultat
         return None
 
 
@@ -72,7 +72,7 @@ class PowerSet():
             for j in set2:
                 if j not in resultat:
                     resultat.append(j)
-            return set(resultat)
+            return resultat
         return None
 
 
@@ -83,7 +83,7 @@ class PowerSet():
                 for j in range(len(self.slots[i])):
                     if self.slots[i][j] not in  set2:
                         resultat.append(self.slots[i][j])
-            return set(resultat)
+            return resultat
         return None
 
 
