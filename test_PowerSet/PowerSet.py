@@ -65,7 +65,7 @@ class PowerSet():
 
 
     def union(self, set2):
-        if isinstance(set2,PowerSet):
+        if isinstance(set2,PowerSet) and set2.sizeSlot > 0 and self.sizeSlot > 0:
             set3 = PowerSet()
             set3 = set2
             for i in range(len(self.slots)):
