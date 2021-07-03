@@ -4,7 +4,7 @@ class PowerSet():
         self.Size = sz
         self.slots = [[] for _ in range(self.Size)]
         self.sizeSlot = 0
-
+  
 
     def hash_fun(self, value):
          return sum(value.encode('utf-8')) % self.Size
@@ -53,44 +53,46 @@ class PowerSet():
         return False
  
 
-    def intersection(self, set2:set):
-        if isinstance(set2, set):
-            resultat = []
-            for i in set2:
-                if self.get(i):
-                    resultat.append(i)
-            if len(resultat)>0: return set(resultat)
+    def intersection(self, set2):
+        if isinstance(set2, PowerSet):
+            set3 = PowerSet()
+            for i in range(len(set2.slots)):
+                for j in range(len(set2.slots[i])):
+                    if self.get(set2.slots[i][j]):
+                        set3.put(set2.slots[i][j])
+            return set3
         return None
 
 
-    def union(self, set2:set):
-        if isinstance(set2,set):
-            resultat = []
+    def union(self, set2):
+        if isinstance(set2,PowerSet):
+            set3 = PowerSet()
+            set3 = set2
             for i in range(len(self.slots)):
                 for j in range(len(self.slots[i])):
-                    resultat.append(self.slots[i][j])
-            for j in set2:
-                if j not in resultat:
-                    resultat.append(j)
-            if len(resultat)>0: return set(resultat)
+                    if not set3.get(self.slots[i][j]):
+                        set3.put(self.slots[i][j])
+            return set3
         return None
 
 
     def difference(self, set2:set):
-        if isinstance(set2,set):
-            resultat = []
+        if isinstance(set2,PowerSet):
+            set3 = PowerSet()
             for i in range(len(self.slots)):
                 for j in range(len(self.slots[i])):
-                    if self.slots[i][j] not in  set2:
-                        resultat.append(self.slots[i][j])
-            return set(resultat)
+                    if not set2.get(self.slots[i][j]):
+                        set3.put(self.slots[i][j])
+            return set3
         return None
 
 
     def issubset(self, set2):
-        if isinstance(set2,set):
-            for i in set2:
-                if not self.get(i): return False
+        if isinstance(set2,PowerSet):
+            for i in range(len(set2.slots)):
+                for j in range(len(set2.slots[i])):
+                    if not self.get(set2.slots[i][j]):
+                        return False
             return True
         return False
 
