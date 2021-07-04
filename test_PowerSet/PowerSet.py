@@ -78,7 +78,7 @@ class PowerSet():
         return None
 
 
-    def difference(self, set2:set):
+    def difference(self, set2):
         if isinstance(set2,PowerSet):
             set3 = PowerSet()
             for i in range(len(self.slots)):
