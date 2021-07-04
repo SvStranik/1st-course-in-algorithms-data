@@ -18,7 +18,6 @@ class LinkedList:
     def print_all_nodes(self):
         node = self.head
         while node is not None:
-            print(node.value)
             node = node.next
     
     def find(self,val):
@@ -89,3 +88,7 @@ class LinkedList:
                 return
             node = node.next
             
+L = LinkedList()
+L.find('12')
+print(L.find_all('12'))
+print(type(L.find_all('12')))
