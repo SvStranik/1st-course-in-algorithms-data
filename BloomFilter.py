@@ -2,7 +2,7 @@ class BloomFilter:
 
     def __init__(self, f_len = 32):
         self.filter_len = f_len
-        self.filter_arr =  [0] * self.filter_len
+        self.filter_arr =  0
 
 
     def hash1(self, str1):
@@ -23,13 +23,11 @@ class BloomFilter:
 
     def add(self, str1):
         if isinstance(str1, str):
-            self.filter_arr[self.hash1(str1)] = 1
-            self.filter_arr[self.hash2(str1)] = 1
-
+            self.filter_arr |= 1 << self.hash1(str1)
+            self.filter_arr |= 1 << self.hash2(str1)
 
     def is_value(self, str1):
         if isinstance(str1, str):
-            if self.filter_arr[self.hash1(str1)] == 0: return False
-            if self.filter_arr[self.hash2(str1)] == 0: return False
+            if self.filter_arr & 1 << self.hash1(str1) == 0: return False
+            if self.filter_arr & 1 << self.hash2(str1) == 0: return False
             return True
-
