@@ -87,8 +87,3 @@ class LinkedList:
                 self.head = newNode
                 return
             node = node.next
-            
-L = LinkedList()
-L.find('12')
-print(L.find_all('12'))
-print(type(L.find_all('12')))

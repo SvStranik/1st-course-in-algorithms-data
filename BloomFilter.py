@@ -6,7 +6,7 @@ class BloomFilter:
 
 
     def hash1(self, str1):
-        resultat = 0
+        resultat = 32
         for c in str1:
             code = ord(c)
             resultat = (resultat * 17 + code) % self.filter_len
