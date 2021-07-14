@@ -17,8 +17,7 @@ class LinkedList2(DummyNode):
     def __init__(self):
         super().__init__()
         
-    def add_in_tail(self, item):
-        node = item
+    def add_in_tail(self, node):
         node.prev = self.tail.prev
         node.next = self.tail
         self.tail.prev.next = node
