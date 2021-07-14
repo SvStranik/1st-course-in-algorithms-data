@@ -9,6 +9,8 @@ class DummyNode:
     def __init__(self):
         self.head = Node("head")
         self.tail = Node("tail")
+        self.head.next = self.tail
+        self.tail.prev = self.head
     
 class LinkedList2(DummyNode):  
 
@@ -16,17 +18,11 @@ class LinkedList2(DummyNode):
         super().__init__()
         
     def add_in_tail(self, item):
-        head = self.head
-        tail = self.tail
-        if head.next == None:
-            head.next = item
-            item.prev = head
-            tail.prev = item
-        else:
-            item.prev = tail.prev
-            tail.prev.next = item
-            tail.prev = item
-        item.next = tail
+        node = item
+        node.prev = self.tail.prev
+        node.next = self.tail
+        self.tail.prev.next = node
+        self.tail.prev = node
         
         
     def delete(self, val, all=False):
