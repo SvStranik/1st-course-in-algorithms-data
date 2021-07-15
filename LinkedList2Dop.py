@@ -5,17 +5,20 @@ class Node:
         self.prev = None
         self.next = None 
 
-class DummyNode:
-    def __init__(self):
-        self.head = Node("head")
-        self.tail = Node("tail")
-        self.head.next = self.tail
-        self.tail.prev = self.head
-    
-class LinkedList2(DummyNode):  
+class DummyNode(Node):
+    def __init__(self,v):
+        super(DummyNode,self).__init__(v)
+        self.get_next = None
+        self.get_prev = None
+        
+        
+class LinkedList2:  
 
     def __init__(self):
-        super().__init__()
+        self.head = DummyNode("head")
+        self.tail = DummyNode("tail")
+        self.head.next = self.tail
+        self.tail.prev = self.head
         
     def add_in_tail(self, node):
         node.prev = self.tail.prev
@@ -24,14 +27,14 @@ class LinkedList2(DummyNode):
         self.tail.prev = node
         
         
+        
     def delete(self, val, all=False):
-        head = self.head
-        tail = self.tail
-        while head != tail:
-            if head.value == val:
-                head.prev.next = head.next
-                head.next.prev = head.prev
-            head = head.next
+        node = self.head
+        while node:
+            if node.value == val:
+                node.prev.next = node.next
+                node.next.prev = node.prev
+            node = node.next
     
     def print_all(self):
         node = self.head.next
