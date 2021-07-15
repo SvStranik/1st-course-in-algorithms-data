@@ -19,6 +19,7 @@ class NativeCache:
             if index_slot == self.size:index_slot = 0
             counter += 1
         return False
+        
 
 
     def put(self, key, value):
