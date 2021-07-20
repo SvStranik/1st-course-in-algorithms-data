@@ -5,16 +5,16 @@ class Node:
         self.next = None
         self.prev = None
          
-    def get_next(self,node):
+    def set_next(self,node):
         self.next = node
    
-    def get_prev(self,node):
+    def set_prev(self,node):
         self.prev = node
         
-    def node_prev(self):
+    def get_prev(self):
         return self.prev
         
-    def node_next(self):
+    def get_next(self):
         return self.next
         
 class DummyNode(Node):
@@ -31,16 +31,16 @@ class LinkedList2:
    
     def add_in_tail(self, newNode):
         noda = self.tail
-        noda2 = noda.node_prev()
-        noda.get_prev(newNode)
-        newNode.get_next(noda)
-        noda2.get_next(newNode)
-        newNode.get_prev(noda2)
+        noda2 = noda.get_prev()
+        noda.set_prev(newNode)
+        newNode.set_next(noda)
+        noda2.set_next(newNode)
+        newNode.set_prev(noda2)
         
     def delete(self, val):
         noda = self.head
         while noda:
             if noda.value == val:
-                noda.node_prev().get_next(noda.node_next())
-                noda.node_next().get_prev(noda.node_prev())
-            noda = noda.node_next()
+                noda.get_prev().set_next(noda.get_next())
+                noda.get_next().set_prev(noda.get_prev())
+            noda = noda.get_next()
