@@ -5,7 +5,6 @@ class Node:
         self.next = None
         self.prev = None
          
-    
     def get_next(self,node):
         self.next = node
    
@@ -30,7 +29,6 @@ class LinkedList2:
         self.tail.prev = self.head
         self.head.next = self.tail
    
-    
     def add_in_tail(self, newNode):
         noda = self.tail
         noda2 = noda.node_prev()
