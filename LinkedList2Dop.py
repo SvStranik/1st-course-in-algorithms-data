@@ -12,9 +12,13 @@ class Node:
         self.prev = node
         
     def get_prev(self):
+        if not isinstance(self,Node):
+            return self.tail
         return self.prev
         
     def get_next(self):
+        if not isinstance(self,Node):
+            return self.head
         return self.next
         
 class DummyNode(Node):
@@ -28,17 +32,25 @@ class LinkedList2:
         self.tail = DummyNode('Tail')
         self.tail.prev = self.head
         self.head.next = self.tail
-   
+        
     def add_in_tail(self, newNode):
-        node = self.tail
+        node = Node.get_prev(self)
         node2 = node.get_prev()
         node.set_prev(newNode)
         newNode.set_next(node)
         node2.set_next(newNode)
         newNode.set_prev(node2)
-
+    
+    def add_in_head(self, newNode):
+        node = Node.get_next(self)
+        node2 = node.get_next()
+        node.set_next(newNode)
+        newNode.set_prev(node)
+        node2.set_prev(newNode)
+        newNode.set_next(node2)
+        
     def delete(self, val, all = False):
-        node = self.head.get_next()
+        node = Node.get_next(self).get_next()
         while node:
             if node.value == val:
                 node.get_prev().set_next(node.get_next())
@@ -47,14 +59,14 @@ class LinkedList2:
             node = node.get_next()
     
     def find(self, val):
-        node = self.head.get_next()
+        node = Node.get_next(self).get_next()
         while not isinstance(node,DummyNode):
             if node.value == val: return node
             node = node.get_next()
         return None 
     
     def find_all(self, val):
-        node = self.head.get_next()
+        node = Node.get_next(self).get_next()
         resultat = []
         while not isinstance(node,DummyNode):
             if node.value == val: 
@@ -63,12 +75,12 @@ class LinkedList2:
         return resultat 
         
     def clean(self):
-        self.head.set_next(self.tail)
-        self.tail.set_prev(self.head)
+        Node.get_next(self).set_next(Node.get_prev(self))
+        Node.get_prev(self).set_prev(Node.get_next(self))
         
     def len(self):
         resultat = 0
-        node =self.head.get_next()
+        node =Node.get_next(self).get_next()
         while not isinstance(node,DummyNode):
             resultat += 1
             node = node.next
@@ -82,17 +94,4 @@ class LinkedList2:
             newNode.set_prev(afterNode)
         else:
             self.add_in_tail(newNode)
-
-    def add_in_head(self, newNode):
-        node = self.head
-        node2 = node.get_next()
-        node.set_next(newNode)
-        newNode.set_prev(node)
-        node2.set_prev(newNode)
-        newNode.set_next(node2)
-        
-    def print_all(self):
-        node = self.head.get_next()
-        while not isinstance(node,DummyNode):
-            print(node.value)
-            node = node.get_next()
+            
