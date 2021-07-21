@@ -30,17 +30,69 @@ class LinkedList2:
         self.head.next = self.tail
    
     def add_in_tail(self, newNode):
-        noda = self.tail
-        noda2 = noda.get_prev()
-        noda.set_prev(newNode)
-        newNode.set_next(noda)
-        noda2.set_next(newNode)
-        newNode.set_prev(noda2)
+        node = self.tail
+        node2 = node.get_prev()
+        node.set_prev(newNode)
+        newNode.set_next(node)
+        node2.set_next(newNode)
+        newNode.set_prev(node2)
+
+    def delete(self, val, all = False):
+        node = self.head.get_next()
+        while node:
+            if node.value == val:
+                node.get_prev().set_next(node.get_next())
+                node.get_next().set_prev(node.get_prev())
+                if all is False: return
+            node = node.get_next()
+    
+    def find(self, val):
+        node = self.head.get_next()
+        while not isinstance(node,DummyNode):
+            if node.value == val: return node
+            node = node.get_next()
+        return None 
+    
+    def find_all(self, val):
+        node = self.head.get_next()
+        resultat = []
+        while not isinstance(node,DummyNode):
+            if node.value == val: 
+                resultat.append(node)
+            node = node.get_next()
+        return resultat 
         
-    def delete(self, val):
-        noda = self.head
-        while noda:
-            if noda.value == val:
-                noda.get_prev().set_next(noda.get_next())
-                noda.get_next().set_prev(noda.get_prev())
-            noda = noda.get_next()
+    def clean(self):
+        self.head.set_next(self.tail)
+        self.tail.set_prev(self.head)
+        
+    def len(self):
+        resultat = 0
+        node =self.head.get_next()
+        while not isinstance(node,DummyNode):
+            resultat += 1
+            node = node.next
+        return resultat 
+        
+    def insert(self, afterNode, newNode):
+        if isinstance(afterNode,Node):
+            afterNode.get_next().set_prev(newNode)
+            newNode.set_next(afterNode.get_next())
+            afterNode.set_next(newNode)
+            newNode.set_prev(afterNode)
+        else:
+            self.add_in_tail(newNode)
+
+    def add_in_head(self, newNode):
+        node = self.head
+        node2 = node.get_next()
+        node.set_next(newNode)
+        newNode.set_prev(node)
+        node2.set_prev(newNode)
+        newNode.set_next(node2)
+        
+    def print_all(self):
+        node = self.head.get_next()
+        while not isinstance(node,DummyNode):
+            print(node.value)
+            node = node.get_next()
