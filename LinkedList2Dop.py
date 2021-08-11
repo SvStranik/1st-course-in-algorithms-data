@@ -1,107 +1,115 @@
 class Node:
+
     def __init__(self,v):
         self.value = v
-        self.prev = None
-        self.next = None 
-
-class DummyNode:
-    
-    def __init__(self):
-        self.prev = None
         self.next = None
-
-class LinkedList2: 
-    
-    def __init__(self):
-        self.head = None
-        self.tail = None
+        self.prev = None
+         
+    def set_next(self,node):
+        self.next = node
+   
+    def set_prev(self,node):
+        self.prev = node
         
-    def delete(self,val, all = False):
-        self.add_in_head(DummyNode())
-        self.add_in_tail(DummyNode())
-        node = self.head
-        while node.next:
-            node = node.next
-            if node.value ==val:
-                node.next.prev = node.prev
-                node.prev.next = node.next
-                if all == False: break
-        if self.head.next == self.tail:
-            self.head = None
-            self.tail = None
-        else:
-            self.head = self.head.next
-            self.head.prev = None
-            self.tail = self.tail.prev
-            self.tail.next = None     
-            
-    def add_in_tail(self, item):
-        if self.head is None:
-            self.head = item
-            item.prev = None
-            item.next = None
-        else:
-            self.tail.next = item
-            item.prev = self.tail
-        self.tail = item
+    def get_next(self):
+        if isinstance(self.next,DummyTail):
+            return None
+        return self.next
+        
+    def get_prev(self):
+        return self.prev
+        
+class DummyHead(Node):
+    def __init__(self,v):
+        super().__init__(v)
+    
+    def get_next(self):
+        if not isinstance(self,Node):
+            return self.head
+        return self.next
+    
+        
+class DummyTail(Node):
+    def __init__(self,v):
+        super().__init__(v)
+    
+    def get_prev(self):
+        if not isinstance(self,Node):
+            return self.tail
+        return self.prev
 
+class LinkedList2:  
+
+    def __init__(self):
+        self.head = DummyHead('Head')
+        self.tail = DummyTail('Tail')
+        self.tail.prev = self.head
+        self.head.next = self.tail
+        
+    def add_in_tail(self, newNode):
+        node = DummyTail.get_prev(self)
+        node2 = node.get_prev()
+        node.set_prev(newNode)
+        newNode.set_next(node)
+        node2.set_next(newNode)
+        newNode.set_prev(node2)
+    
+    def add_in_head(self, newNode):
+        node = DummyHead.get_next(self)
+        node2 = node.get_next()
+        node.set_next(newNode)
+        newNode.set_prev(node)
+        node2.set_prev(newNode)
+        newNode.set_next(node2)
+        
+    def delete(self, val, all = True):
+        node = DummyHead.get_next(self).get_next()
+        while node:
+            if node.value == val:
+                node.get_prev().set_next(node.get_next())
+                node.get_next().set_prev(node.get_prev())
+                if all is False: return
+            node = node.get_next()
+         
     def find(self, val):
-        node = self.head
+        node = DummyHead.get_next(self).get_next()
         while node:
             if node.value == val: return node
-            node = node.next
+            node = node.get_next()
         return None 
-
+    
     def find_all(self, val):
-        node = self.head
+        node = DummyHead.get_next(self).get_next()
         resultat = []
         while node:
             if node.value == val: 
                 resultat.append(node)
-            node = node.next
+            node = node.get_next()
         return resultat 
-
+        
     def clean(self):
-        self.head = None
-        self.tail = None 
-
+        DummyHead.get_next(self).set_next(DummyTail.get_prev(self))
+        DummyTail.get_prev(self).set_prev(DummyHead.get_next(self))
+        
     def len(self):
         resultat = 0
-        node = self.head
+        node = DummyHead.get_next(self).get_next()
         while node:
             resultat += 1
-            node = node.next
+            node = node.get_next()
         return resultat 
-
+        
     def insert(self, afterNode, newNode):
-        node = self.head
-        if node == None:
-            self.head = newNode
-            self.tail = newNode
-            return
-        while node:
-            if node == afterNode:
-                if node.next == None:
-                    self.tail = newNode
-                    newNode.prev = node
-                else:
-                    node.next.prev = newNode
-                    newNode.next = node.next
-                    newNode.prev = node
-                node.next = newNode
-                return
-            if node.next == None and node != afterNode:
-                node.next = newNode
-                newNode.prev = node
-                self.tail = newNode
-                return
-            node = node.next
-
-    def add_in_head(self, newNode):
-        node = self.head
-        if node == None:
-            self.tail = newNode
+        if isinstance(afterNode,Node):
+            afterNode.get_next().set_prev(newNode)
+            newNode.set_next(afterNode.get_next())
+            afterNode.set_next(newNode)
+            newNode.set_prev(afterNode)
         else:
-            node.prev = newNode
-            newNode.next = node
-        self.head = newNode
+            self.add_in_tail(newNode)
+            
+    def printNode(self):
+        node = DummyHead.get_next(self).get_next()
+        while node:
+            print(node.value)
+            node = node.get_next()

@@ -18,7 +18,6 @@ class LinkedList:
     def print_all_nodes(self):
         node = self.head
         while node is not None:
-            print(node.value)
             node = node.next
     
     def find(self,val):
@@ -88,4 +87,3 @@ class LinkedList:
                 self.head = newNode
                 return
             node = node.next
-            
